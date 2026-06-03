@@ -32,6 +32,7 @@ interface AssessmentState {
   teacherComment: string;
   confirmedLevel: string;
   activeStep: 1 | 2 | 3;
+  assessmentMode: "checklist" | "game";
   setStudentInfo: (info: Partial<StudentInfo>) => void;
   setActiveLevel: (level: "Seed" | "Sprout" | "Sapling" | "Tree") => void;
   toggleScore: (id: string, isCanDo: boolean) => void;
@@ -39,6 +40,7 @@ interface AssessmentState {
   setTeacherComment: (comment: string) => void;
   setConfirmedLevel: (level: string) => void;
   setStep: (step: 1 | 2 | 3) => void;
+  setAssessmentMode: (mode: "checklist" | "game") => void;
   resetStore: () => void;
 }
 
@@ -62,6 +64,7 @@ export const useAssessmentStore = create<AssessmentState>((set) => ({
   teacherComment: "",
   confirmedLevel: "Seed 🌰",
   activeStep: 1,
+  assessmentMode: "checklist",
 
   setStudentInfo: (info) => 
     set((state) => ({ studentInfo: { ...state.studentInfo, ...info } })),
@@ -104,6 +107,9 @@ export const useAssessmentStore = create<AssessmentState>((set) => ({
   setStep: (step) => 
     set(() => ({ activeStep: step })),
 
+  setAssessmentMode: (mode) =>
+    set(() => ({ assessmentMode: mode })),
+
   resetStore: () => 
     set(() => ({
       studentInfo: {
@@ -116,5 +122,6 @@ export const useAssessmentStore = create<AssessmentState>((set) => ({
       teacherComment: "",
       confirmedLevel: "Seed 🌰",
       activeStep: 1,
+      assessmentMode: "checklist",
     })),
 }));

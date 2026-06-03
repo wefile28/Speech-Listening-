@@ -9,7 +9,6 @@ import {
   Home, 
   Check, 
   X, 
-  Award, 
   CheckCircle,
   AlertCircle,
   BookOpen
@@ -20,6 +19,32 @@ interface MappedQuestion {
   text: string;
   skill: "Listening" | "Speaking";
   is_can_do: boolean;
+}
+
+interface DbStudent {
+  id: string;
+  first_name: string;
+  last_name: string;
+  nickname: string;
+  age: number;
+}
+
+interface DbScore {
+  criterion_id: string;
+  is_can_do: boolean;
+}
+
+interface DbSession {
+  id: string;
+  student_id: string;
+  evaluator_name: string;
+  speaking_percentage: number;
+  listening_percentage: number;
+  suggested_level: string;
+  assessment_type: string;
+  teacher_qualitative_note?: string;
+  scores: DbScore[];
+  created_at: string;
 }
 
 function ReportContent() {
@@ -39,8 +64,8 @@ function ReportContent() {
   const [loading, setLoading] = useState(!!sessionId);
   
   // States for database-loaded data (if loading from history)
-  const [dbStudent, setDbStudent] = useState<any>(null);
-  const [dbSession, setDbSession] = useState<any>(null);
+  const [dbStudent, setDbStudent] = useState<DbStudent | null>(null);
+  const [dbSession, setDbSession] = useState<DbSession | null>(null);
   const [dbScores, setDbScores] = useState<MappedQuestion[]>([]);
 
   useEffect(() => {
@@ -54,19 +79,18 @@ function ReportContent() {
         const session = await sessionRes.json();
         setDbSession(session);
 
-        // Fetch student list to find matching student
         const studentRes = await fetch("http://127.0.0.1:8000/api/v1/students");
         if (studentRes.ok) {
           const students = await studentRes.json();
-          const student = students.find((s: any) => s.id === session.student_id);
+          const student = students.find((s: DbStudent) => s.id === session.student_id);
           setDbStudent(student);
         }
 
         // Map database scores to question text
-        const mapped: MappedQuestion[] = session.scores.map((score: any) => {
+        const mapped: MappedQuestion[] = session.scores.map((score: DbScore) => {
           const cid = score.criterion_id;
           if (cid.startsWith("custom::")) {
-            const [_, text, skill] = cid.split("::");
+            const [, text, skill] = cid.split("::");
             return {
               text,
               skill: skill as "Listening" | "Speaking",
@@ -112,16 +136,16 @@ function ReportContent() {
   const nickname = sessionId ? (dbStudent?.nickname || "") : studentInfo.nickname;
   const age = sessionId ? (dbStudent?.age || 5) : studentInfo.age;
   const dateStr = sessionId 
-    ? new Date(dbSession?.created_at).toLocaleDateString("th-TH") 
-    : new Date(studentInfo.date_of_assessment).toLocaleDateString("th-TH");
+    ? new Date(dbSession?.created_at || new Date()).toLocaleDateString("th-TH") 
+    : new Date(studentInfo.date_of_assessment || new Date()).toLocaleDateString("th-TH");
   const testType = sessionId ? (dbSession?.assessment_type || "Placement Interview") : studentInfo.test_type;
   
   const finalLevel = sessionId ? (dbSession?.suggested_level || "Seed 🌰") : confirmedLevel;
   const finalComment = sessionId ? (dbSession?.teacher_qualitative_note || "") : teacherComment;
 
   // Compile Can Do vs Needs Practice questions list
-  let canDoList: string[] = [];
-  let needsPracticeList: string[] = [];
+  const canDoList: string[] = [];
+  const needsPracticeList: string[] = [];
 
   let speakingPassed = 0;
   let speakingTotal = 0;
@@ -226,49 +250,49 @@ function ReportContent() {
       </div>
 
       {/* Main A4 Printable Area */}
-      <div className="w-full max-w-[210mm] min-h-[297mm] bg-white realistic-a4-shadow rounded-none border border-neutral-100 p-4 sm:p-8 md:p-10 print:p-10 flex flex-col justify-between print-page-container relative overflow-hidden">
+      <div className="w-full max-w-[210mm] min-h-[297mm] print:min-h-0 bg-white realistic-a4-shadow rounded-none border border-neutral-100 p-4 sm:p-8 md:p-10 print:p-0 flex flex-col justify-between print-page-container relative overflow-hidden">
         
         {/* Subtle decorative Giraffe background spots for watermark effect */}
         <div className="absolute top-0 right-0 w-44 h-44 bg-giraffe-yellow/[0.02] rounded-full blur-xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-giraffe-brown/[0.015] rounded-full blur-2xl pointer-events-none" />
 
-        <div className="space-y-6">
+        <div className="space-y-6 print:space-y-4">
           
           {/* Header Row */}
-          <div className="flex items-center justify-between border-b-2 border-giraffe-yellow/30 pb-4">
+          <div className="flex items-center justify-between border-b-2 border-giraffe-yellow/30 pb-4 print:pb-3">
             <div className="flex items-center gap-2">
-              <div className="h-10 w-10 rounded-xl bg-giraffe-yellow flex items-center justify-center text-white text-xl">🦒</div>
+              <div className="h-10 w-10 print:h-9 print:w-9 print:rounded-lg bg-giraffe-yellow flex items-center justify-center text-white text-xl print:text-lg">🦒</div>
               <div>
-                <h1 className="text-xl font-extrabold tracking-tight text-giraffe-brown-dark">Speak&Listen</h1>
-                <p className="text-[9px] text-giraffe-brown/60 tracking-wider font-semibold uppercase">Intake placement assessment</p>
+                <h1 className="text-xl print:text-xl font-extrabold tracking-tight text-giraffe-brown-dark">Speak&Listen</h1>
+                <p className="text-[10.5px] print:text-[10px] text-giraffe-brown/60 tracking-wider font-bold uppercase">Intake placement assessment</p>
               </div>
             </div>
             <div className="text-right">
-              <span className="text-[10px] text-neutral-400 font-bold uppercase tracking-wider block">Assessment Date</span>
-              <span className="text-xs font-extrabold text-giraffe-brown-dark">{dateStr}</span>
+              <span className="text-[10px] print:text-[9.5px] text-neutral-400 font-bold uppercase tracking-wider block">Assessment Date</span>
+              <span className="text-xs print:text-[11px] font-black text-giraffe-brown-dark">{dateStr}</span>
             </div>
           </div>
 
           {/* Student Profile Info Section */}
-          <div className="grid grid-cols-3 gap-4">
-            <div className="p-3 bg-neutral-50/50 rounded-2xl border border-neutral-100">
-              <span className="text-[9px] text-neutral-400 font-bold uppercase tracking-wider block">Student Name</span>
-              <span className="text-xs font-extrabold text-giraffe-brown-dark">
-                Nong {nickname} <span className="font-medium text-[10px] text-neutral-500">({name})</span>
+          <div className="grid grid-cols-3 gap-4 print:gap-3">
+            <div className="p-3 print:p-2.5 bg-neutral-50/50 rounded-2xl print:rounded-xl border border-neutral-100">
+              <span className="text-[10px] print:text-[9.5px] text-neutral-400 font-bold uppercase tracking-wider block">Student Name</span>
+              <span className="text-sm print:text-xs font-black text-giraffe-brown-dark">
+                Nong {nickname} <span className="font-medium text-[11px] text-neutral-500">({name})</span>
               </span>
             </div>
-            <div className="p-3 bg-neutral-50/50 rounded-2xl border border-neutral-100">
-              <span className="text-[9px] text-neutral-400 font-bold uppercase tracking-wider block">Age</span>
-              <span className="text-xs font-extrabold text-giraffe-brown-dark">{age} years old</span>
+            <div className="p-3 print:p-2.5 bg-neutral-50/50 rounded-2xl print:rounded-xl border border-neutral-100">
+              <span className="text-[10px] print:text-[9.5px] text-neutral-400 font-bold uppercase tracking-wider block">Age</span>
+              <span className="text-sm print:text-xs font-black text-giraffe-brown-dark">{age} years old</span>
             </div>
-            <div className="p-3 bg-neutral-50/50 rounded-2xl border border-neutral-100">
-              <span className="text-[9px] text-neutral-400 font-bold uppercase tracking-wider block">Assessment Type</span>
-              <span className="text-xs font-extrabold text-giraffe-brown-dark">{testType}</span>
+            <div className="p-3 print:p-2.5 bg-neutral-50/50 rounded-2xl print:rounded-xl border border-neutral-100">
+              <span className="text-[10px] print:text-[9.5px] text-neutral-400 font-bold uppercase tracking-wider block">Assessment Type</span>
+              <span className="text-sm print:text-xs font-black text-giraffe-brown-dark">{testType}</span>
             </div>
           </div>
 
           {/* Twin Donut Charts side-by-side (Vertical on mobile screen, horizontal on print) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 print:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 print:grid-cols-2 gap-4 print:gap-3">
             <DonutChart 
               percentage={speakingPercentage}
               total={speakingTotal}
@@ -290,57 +314,47 @@ function ReportContent() {
           </div>
 
           {/* Can Do / Needs Practice Side-by-Side Panel (Vertical on mobile screen, horizontal on print) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 print:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 print:grid-cols-2 gap-4 print:gap-3">
             
             {/* Can Do Box */}
-            <div className="p-4 rounded-2xl border border-safari-green/10 bg-emerald-50/15 flex flex-col justify-between h-48">
+            <div className="p-4 print:p-3.5 rounded-2xl print:rounded-xl border border-safari-green/10 bg-emerald-50/15 flex flex-col h-auto">
               <div>
-                <h4 className="font-extrabold text-xs text-safari-green flex items-center gap-1 mb-2 border-b border-safari-green/10 pb-1">
-                  <CheckCircle className="h-3.5 w-3.5" />
+                <h4 className="font-extrabold text-sm print:text-xs text-safari-green flex items-center gap-1.5 mb-2.5 print:mb-2 border-b border-safari-green/10 pb-1 print:pb-1">
+                  <CheckCircle className="h-4 w-4 print:h-3.5 print:w-3.5" />
                   ✔ Can Do
                 </h4>
                 {canDoList.length === 0 ? (
-                  <p className="text-[10px] text-neutral-400 font-light">ยังไม่พบรายการความสามารถที่ผ่านเกณฑ์</p>
+                  <p className="text-xs print:text-[11px] text-neutral-400 font-light">ยังไม่พบรายการความสามารถที่ผ่านเกณฑ์</p>
                 ) : (
-                  <ul className="space-y-1 overflow-y-auto max-h-[120px] pr-1">
-                    {canDoList.slice(0, 5).map((item, i) => (
-                      <li key={i} className="text-[9px] text-giraffe-brown-dark leading-tight flex items-start gap-1.5 font-medium">
-                        <Check className="h-2.5 w-2.5 text-safari-green shrink-0 mt-0.5" />
+                  <ul className="space-y-1.5 print:space-y-1 pr-1">
+                    {canDoList.map((item, i) => (
+                      <li key={i} className="text-xs print:text-[11px] text-giraffe-brown-dark leading-snug flex items-start gap-2 font-semibold">
+                        <Check className="h-3.5 w-3.5 print:h-3 print:w-3 text-safari-green shrink-0 mt-0.5" />
                         <span>{item}</span>
                       </li>
                     ))}
-                    {canDoList.length > 5 && (
-                      <li className="text-[8px] text-safari-green/80 italic font-semibold pl-4">
-                        + {canDoList.length - 5} items more...
-                      </li>
-                    )}
                   </ul>
                 )}
               </div>
             </div>
 
             {/* Needs Practice Box */}
-            <div className="p-4 rounded-2xl border border-savannah-red/10 bg-orange-50/15 flex flex-col justify-between h-48">
+            <div className="p-4 print:p-3.5 rounded-2xl print:rounded-xl border border-savannah-red/10 bg-orange-50/15 flex flex-col h-auto">
               <div>
-                <h4 className="font-extrabold text-xs text-savannah-red flex items-center gap-1 mb-2 border-b border-savannah-red/10 pb-1">
-                  <AlertCircle className="h-3.5 w-3.5" />
+                <h4 className="font-extrabold text-sm print:text-xs text-savannah-red flex items-center gap-1.5 mb-2.5 print:mb-2 border-b border-savannah-red/10 pb-1 print:pb-1">
+                  <AlertCircle className="h-4 w-4 print:h-3.5 print:w-3.5" />
                   ✖ Needs Practice
                 </h4>
                 {needsPracticeList.length === 0 ? (
-                  <p className="text-[10px] text-neutral-400 font-light">นักเรียนผ่านการทดสอบครบทุกข้อ</p>
+                  <p className="text-xs print:text-[11px] text-neutral-400 font-light">นักเรียนผ่านการทดสอบครบทุกข้อ</p>
                 ) : (
-                  <ul className="space-y-1 overflow-y-auto max-h-[120px] pr-1">
-                    {needsPracticeList.slice(0, 5).map((item, i) => (
-                      <li key={i} className="text-[9px] text-giraffe-brown-dark leading-tight flex items-start gap-1.5 font-medium">
-                        <X className="h-2.5 w-2.5 text-savannah-red shrink-0 mt-0.5" />
+                  <ul className="space-y-1.5 print:space-y-1 pr-1">
+                    {needsPracticeList.map((item, i) => (
+                      <li key={i} className="text-xs print:text-[11px] text-giraffe-brown-dark leading-snug flex items-start gap-2 font-semibold">
+                        <X className="h-3.5 w-3.5 print:h-3 print:w-3 text-savannah-red shrink-0 mt-0.5" />
                         <span>{item}</span>
                       </li>
                     ))}
-                    {needsPracticeList.length > 5 && (
-                      <li className="text-[8px] text-savannah-red/80 italic font-semibold pl-4">
-                        + {needsPracticeList.length - 5} items more...
-                      </li>
-                    )}
                   </ul>
                 )}
               </div>
@@ -349,43 +363,42 @@ function ReportContent() {
           </div>
 
           {/* Parent Guide to Levels Grid */}
-          <div className="space-y-2">
-            <h4 className="text-xs font-extrabold text-giraffe-brown flex items-center gap-1.5 border-b border-giraffe-brown/5 pb-1">
+          <div className="space-y-2 print:space-y-1.5">
+            <h4 className="text-sm print:text-xs font-extrabold text-giraffe-brown flex items-center gap-1.5 border-b border-giraffe-brown/5 pb-1">
               <BookOpen className="h-4 w-4 text-giraffe-yellow-dark" />
-              ตารางอธิบายผู้ปกครองในแต่ละระดับ (Parent Guide to Language Levels)
+              ตารางเทียบระดับ
             </h4>
-            <div className="w-full overflow-x-auto print:overflow-visible border border-neutral-100 rounded-2xl shadow-sm">
-              <table className="w-full min-w-[600px] print:min-w-full text-left border-collapse text-[10px]">
+            <div className="w-full overflow-x-auto print:overflow-visible border border-neutral-100 print:border-neutral-200 rounded-2xl print:rounded-xl shadow-sm print:shadow-none">
+              <table className="w-full min-w-[600px] print:min-w-full text-left border-collapse text-xs print:text-[11px]">
                 <thead>
-                  <tr className="bg-neutral-50 border-b border-neutral-100 text-[9px] font-bold text-neutral-400 uppercase">
-                    <th className="py-2.5 px-3">Name of Levels</th>
-                    <th className="py-2.5 px-3">Progression</th>
-                    <th className="py-2.5 px-3 w-16">YLE</th>
-                    <th className="py-2.5 px-3 w-16">CEFR</th>
-                    <th className="py-2.5 px-3">Characteristic (ลักษณะเด็กคร่าวๆ)</th>
+                  <tr className="bg-neutral-50 border-b border-neutral-100 text-[10px] print:text-[9.5px] font-bold text-neutral-400 uppercase">
+                    <th className="py-3 px-3 print:py-2 print:px-2.5">Name of Levels</th>
+                    <th className="py-3 px-3 print:py-2 print:px-2.5">Progression</th>
+                    <th className="py-3 px-3 print:py-2 print:px-2.5 w-20 print:w-16">YLE</th>
+                    <th className="py-3 px-3 print:py-2 print:px-2.5 w-20 print:w-16">CEFR</th>
+                    <th className="py-3 px-3 print:py-2 print:px-2.5">Characteristic (ลักษณะเด็กคร่าวๆ)</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-neutral-100">
                   {parentLevels.map((lvl) => {
-                    // Match logic: does level name match confirmed Level?
                     const isMatched = finalLevel.includes(lvl.name.replace(/[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF]/g, "").trim());
                     return (
                       <tr 
                         key={lvl.name} 
                         className={`transition-all ${
                           isMatched 
-                            ? "bg-giraffe-yellow/10 border-2 border-giraffe-yellow font-bold text-giraffe-brown-dark" 
+                            ? "bg-giraffe-yellow/15 border-2 border-giraffe-yellow font-bold text-giraffe-brown-dark" 
                             : "opacity-60 text-giraffe-brown/80 font-light"
                         }`}
                       >
-                        <td className="py-2.5 px-3 flex items-center gap-1">
-                          {isMatched && <span className="text-[10px] text-giraffe-yellow-dark">🎯</span>}
+                        <td className="py-3 px-3 print:py-2.5 print:px-2.5 flex items-center gap-1">
+                          {isMatched && <span className="text-[11px] print:text-[10px] text-giraffe-yellow-dark">🎯</span>}
                           <span>{lvl.name}</span>
                         </td>
-                        <td className="py-2.5 px-3">{lvl.progression}</td>
-                        <td className="py-2.5 px-3">{lvl.yle}</td>
-                        <td className="py-2.5 px-3">{lvl.cefr}</td>
-                        <td className="py-2.5 px-3 text-[9px] leading-snug">{lvl.desc}</td>
+                        <td className="py-3 px-3 print:py-2.5 print:px-2.5">{lvl.progression}</td>
+                        <td className="py-3 px-3 print:py-2.5 print:px-2.5">{lvl.yle}</td>
+                        <td className="py-3 px-3 print:py-2.5 print:px-2.5">{lvl.cefr}</td>
+                        <td className="py-3 px-3 print:py-2.5 print:px-2.5 text-[10px] print:text-[10px] leading-snug print:leading-snug font-medium">{lvl.desc}</td>
                       </tr>
                     );
                   })}
@@ -395,34 +408,34 @@ function ReportContent() {
           </div>
 
           {/* Teacher comment note block */}
-          <div className="p-4 rounded-2xl border border-giraffe-yellow/20 bg-yellow-50/10 space-y-1">
-            <span className="text-[9px] text-giraffe-yellow-dark font-extrabold uppercase tracking-wider block">Teacher's Evaluation Comment</span>
-            <p className="text-xs text-giraffe-brown-dark leading-relaxed font-medium">
-              "{finalComment || "นักเรียนมีปฏิกิริยาโต้ตอบเชิงบวกที่น่ารักมาก พร้อมที่จะเรียนรู้และมีความมั่นใจในการร่วมกิจกรรมในห้องเรียนเป็นอย่างดีครับ"}"
+          <div className="p-4 print:p-3 rounded-2xl print:rounded-xl border border-giraffe-yellow/20 bg-yellow-50/10 space-y-1.5 print:space-y-1">
+            <span className="text-[11px] print:text-[10px] text-giraffe-yellow-dark font-extrabold uppercase tracking-wider block">{"Teacher's Evaluation Comment"}</span>
+            <p className="text-sm print:text-xs text-giraffe-brown-dark leading-relaxed print:leading-relaxed font-bold">
+              {"\"" + (finalComment || "นักเรียนมีปฏิกิริยาโต้ตอบเชิงบวกที่น่ารักมาก พร้อมที่จะเรียนรู้และมีความมั่นใจในการร่วมกิจกรรมในห้องเรียนเป็นอย่างดีครับ") + "\""}
             </p>
           </div>
 
         </div>
 
         {/* Footer block: Objectives & Placement Badge */}
-        <div className="border-t border-neutral-100 pt-4 mt-6 flex flex-col sm:flex-row print:flex-row items-center sm:items-end print:items-end justify-between gap-4">
+        <div className="border-t border-neutral-100 pt-4 print:pt-3 mt-6 print:mt-4 flex flex-col sm:flex-row print:flex-row items-center sm:items-end print:items-end justify-between gap-4 print:gap-3">
           
           {/* Objectives Outline */}
-          <div className="w-full sm:max-w-[70%] print:max-w-[70%] space-y-1.5 text-center sm:text-left print:text-left">
-            <span className="text-[8px] text-giraffe-brown/50 font-bold uppercase tracking-wider block">Objectives Outline / เป้าหมายการเรียนรู้</span>
-            <p className="text-[9px] text-giraffe-brown/70 leading-relaxed font-light">
+          <div className="w-full sm:max-w-[72%] print:max-w-[72%] space-y-1.5 print:space-y-1 text-center sm:text-left print:text-left">
+            <span className="text-[10px] print:text-[9px] text-giraffe-brown/50 font-bold uppercase tracking-wider block">Objectives Outline / เป้าหมายการเรียนรู้</span>
+            <p className="text-[11px] print:text-[10px] text-giraffe-brown/70 leading-relaxed print:leading-relaxed font-medium">
               เด็กที่มีพื้นฐานที่ดี จะพร้อมเรียนรู้ได้มากกว่า รู้จักระบบภายในห้องเรียน เพื่อให้มีส่วนร่วมกับกิจกรรมให้ได้มากที่สุด เเละส่งเสริม **Activity-Based Learning** เพื่อให้การพัฒนาภาษาเป็นไปในทางที่ดีที่สุด และเราคาดหวังให้บรรยากาศเป็น **100% Total English Environment** ในห้องเรียน
             </p>
           </div>
 
           {/* Placement Badge & Verification */}
-          <div className="flex flex-col items-center text-center space-y-1 shrink-0">
-            <div className="px-4 py-2 bg-gradient-to-r from-giraffe-yellow to-giraffe-yellow-dark rounded-xl shadow-sm text-white flex flex-col items-center justify-center min-w-[120px]">
-              <span className="text-[8px] font-bold uppercase tracking-wider opacity-90">Placed Level</span>
-              <span className="text-xs font-extrabold">{finalLevel}</span>
+          <div className="flex flex-col items-center text-center space-y-1.5 shrink-0">
+            <div className="px-5 py-2.5 print:px-4 print:py-2 bg-gradient-to-r from-giraffe-yellow to-giraffe-yellow-dark rounded-xl print:rounded-lg shadow-sm print:shadow-none text-white flex flex-col items-center justify-center min-w-[140px] print:min-w-[120px]">
+              <span className="text-[10px] print:text-[9px] font-bold uppercase tracking-wider opacity-90">Placed Level</span>
+              <span className="text-sm print:text-xs font-black">{finalLevel}</span>
             </div>
             
-            <div className="flex items-center gap-1 mt-1 text-[8px] text-safari-green font-bold uppercase">
+            <div className="flex items-center gap-1 mt-1 print:mt-0.5 text-[10px] print:text-[9px] text-safari-green font-bold uppercase">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-safari-green"></span>

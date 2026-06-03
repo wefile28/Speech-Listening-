@@ -34,12 +34,42 @@ interface SeededSession {
   student?: SeededStudent;
 }
 
+const monthsThai = [
+  { value: "01", label: "ม.ค. (Jan)" },
+  { value: "02", label: "ก.พ. (Feb)" },
+  { value: "03", label: "มี.ค. (Mar)" },
+  { value: "04", label: "เม.ย. (Apr)" },
+  { value: "05", label: "พ.ค. (May)" },
+  { value: "06", label: "มิ.ย. (Jun)" },
+  { value: "07", label: "ก.ค. (Jul)" },
+  { value: "08", label: "ส.ค. (Aug)" },
+  { value: "09", label: "ก.ย. (Sep)" },
+  { value: "10", label: "ต.ค. (Oct)" },
+  { value: "11", label: "พ.ย. (Nov)" },
+  { value: "12", label: "ธ.ค. (Dec)" }
+];
+
+const yearsList = [
+  { value: "2024", label: "2024 (2567)" },
+  { value: "2025", label: "2025 (2568)" },
+  { value: "2026", label: "2026 (2569)" },
+  { value: "2027", label: "2027 (2570)" },
+  { value: "2028", label: "2028 (2571)" },
+  { value: "2029", label: "2029 (2572)" },
+  { value: "2030", label: "2030 (2573)" }
+];
+
 export default function Home() {
   const router = useRouter();
-  const { studentInfo, setStudentInfo, setStep, resetStore } = useAssessmentStore();
+  const { studentInfo, setStudentInfo, setStep } = useAssessmentStore();
   
   const [history, setHistory] = useState<SeededSession[]>([]);
   const [loadingHistory, setLoadingHistory] = useState(true);
+
+  const dateParts = (studentInfo.date_of_assessment || "").split("-");
+  const yyyy = dateParts[0] || "2026";
+  const mm = dateParts[1] || "06";
+  const dd = dateParts[2] || "03";
 
   // Load history from FastAPI Backend
   useEffect(() => {
@@ -218,13 +248,50 @@ export default function Home() {
                 <label className="text-xs font-bold text-giraffe-brown/80 flex items-center gap-1">
                   <Calendar className="h-3.5 w-3.5 text-giraffe-yellow-dark" /> วันที่ทำการประเมิน (Assessment Date)
                 </label>
-                <input 
-                  type="date" 
-                  required
-                  className="w-full px-4 py-2.5 rounded-xl border border-giraffe-brown/20 bg-white/70 focus:outline-none focus:ring-2 focus:ring-giraffe-yellow focus:border-transparent text-sm transition-all text-neutral-800"
-                  value={studentInfo.date_of_assessment}
-                  onChange={(e) => setStudentInfo({ date_of_assessment: e.target.value })}
-                />
+                <div className="grid grid-cols-3 gap-2">
+                  {/* Day Select */}
+                  <select
+                    className="w-full px-2 py-2.5 rounded-xl border border-giraffe-brown/20 bg-white/70 text-xs focus:outline-none focus:ring-2 focus:ring-giraffe-yellow focus:border-transparent text-neutral-800 transition-all font-sans"
+                    value={dd}
+                    onChange={(e) => {
+                      const newDate = `${yyyy}-${mm}-${e.target.value}`;
+                      setStudentInfo({ date_of_assessment: newDate });
+                    }}
+                  >
+                    {Array.from({ length: 31 }, (_, i) => {
+                      const dayVal = String(i + 1).padStart(2, "0");
+                      return <option key={dayVal} value={dayVal}>{i + 1}</option>;
+                    })}
+                  </select>
+
+                  {/* Month Select */}
+                  <select
+                    className="w-full px-2 py-2.5 rounded-xl border border-giraffe-brown/20 bg-white/70 text-xs focus:outline-none focus:ring-2 focus:ring-giraffe-yellow focus:border-transparent text-neutral-800 transition-all font-sans"
+                    value={mm}
+                    onChange={(e) => {
+                      const newDate = `${yyyy}-${e.target.value}-${dd}`;
+                      setStudentInfo({ date_of_assessment: newDate });
+                    }}
+                  >
+                    {monthsThai.map((m) => (
+                      <option key={m.value} value={m.value}>{m.label}</option>
+                    ))}
+                  </select>
+
+                  {/* Year Select */}
+                  <select
+                    className="w-full px-2 py-2.5 rounded-xl border border-giraffe-brown/20 bg-white/70 text-xs focus:outline-none focus:ring-2 focus:ring-giraffe-yellow focus:border-transparent text-neutral-800 transition-all font-sans"
+                    value={yyyy}
+                    onChange={(e) => {
+                      const newDate = `${e.target.value}-${mm}-${dd}`;
+                      setStudentInfo({ date_of_assessment: newDate });
+                    }}
+                  >
+                    {yearsList.map((y) => (
+                      <option key={y.value} value={y.value}>{y.label}</option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               <div className="space-y-1.5">
