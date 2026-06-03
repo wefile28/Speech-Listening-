@@ -226,7 +226,7 @@ function ReportContent() {
       </div>
 
       {/* Main A4 Printable Area */}
-      <div className="w-full max-w-[210mm] min-h-[297mm] bg-white realistic-a4-shadow rounded-none border border-neutral-100 p-8 md:p-10 flex flex-col justify-between print-page-container relative overflow-hidden">
+      <div className="w-full max-w-[210mm] min-h-[297mm] bg-white realistic-a4-shadow rounded-none border border-neutral-100 p-4 sm:p-8 md:p-10 print:p-10 flex flex-col justify-between print-page-container relative overflow-hidden">
         
         {/* Subtle decorative Giraffe background spots for watermark effect */}
         <div className="absolute top-0 right-0 w-44 h-44 bg-giraffe-yellow/[0.02] rounded-full blur-xl pointer-events-none" />
@@ -267,8 +267,8 @@ function ReportContent() {
             </div>
           </div>
 
-          {/* Twin Donut Charts side-by-side */}
-          <div className="grid grid-cols-2 gap-4">
+          {/* Twin Donut Charts side-by-side (Vertical on mobile screen, horizontal on print) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 print:grid-cols-2 gap-4">
             <DonutChart 
               percentage={speakingPercentage}
               total={speakingTotal}
@@ -289,8 +289,8 @@ function ReportContent() {
             />
           </div>
 
-          {/* Can Do / Needs Practice Side-by-Side Panel */}
-          <div className="grid grid-cols-2 gap-4">
+          {/* Can Do / Needs Practice Side-by-Side Panel (Vertical on mobile screen, horizontal on print) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 print:grid-cols-2 gap-4">
             
             {/* Can Do Box */}
             <div className="p-4 rounded-2xl border border-safari-green/10 bg-emerald-50/15 flex flex-col justify-between h-48">
@@ -354,8 +354,8 @@ function ReportContent() {
               <BookOpen className="h-4 w-4 text-giraffe-yellow-dark" />
               ตารางอธิบายผู้ปกครองในแต่ละระดับ (Parent Guide to Language Levels)
             </h4>
-            <div className="border border-neutral-100 rounded-2xl overflow-hidden shadow-sm">
-              <table className="w-full text-left border-collapse text-[10px]">
+            <div className="w-full overflow-x-auto print:overflow-visible border border-neutral-100 rounded-2xl shadow-sm">
+              <table className="w-full min-w-[600px] print:min-w-full text-left border-collapse text-[10px]">
                 <thead>
                   <tr className="bg-neutral-50 border-b border-neutral-100 text-[9px] font-bold text-neutral-400 uppercase">
                     <th className="py-2.5 px-3">Name of Levels</th>
@@ -405,10 +405,10 @@ function ReportContent() {
         </div>
 
         {/* Footer block: Objectives & Placement Badge */}
-        <div className="border-t border-neutral-100 pt-4 mt-6 flex items-end justify-between">
+        <div className="border-t border-neutral-100 pt-4 mt-6 flex flex-col sm:flex-row print:flex-row items-center sm:items-end print:items-end justify-between gap-4">
           
           {/* Objectives Outline */}
-          <div className="max-w-[70%] space-y-1.5">
+          <div className="w-full sm:max-w-[70%] print:max-w-[70%] space-y-1.5 text-center sm:text-left print:text-left">
             <span className="text-[8px] text-giraffe-brown/50 font-bold uppercase tracking-wider block">Objectives Outline / เป้าหมายการเรียนรู้</span>
             <p className="text-[9px] text-giraffe-brown/70 leading-relaxed font-light">
               เด็กที่มีพื้นฐานที่ดี จะพร้อมเรียนรู้ได้มากกว่า รู้จักระบบภายในห้องเรียน เพื่อให้มีส่วนร่วมกับกิจกรรมให้ได้มากที่สุด เเละส่งเสริม **Activity-Based Learning** เพื่อให้การพัฒนาภาษาเป็นไปในทางที่ดีที่สุด และเราคาดหวังให้บรรยากาศเป็น **100% Total English Environment** ในห้องเรียน
@@ -416,8 +416,8 @@ function ReportContent() {
           </div>
 
           {/* Placement Badge & Verification */}
-          <div className="flex flex-col items-center text-center space-y-1">
-            <div className="px-4 py-2 bg-gradient-to-r from-giraffe-yellow to-giraffe-yellow-dark rounded-xl shadow-sm text-white flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center text-center space-y-1 shrink-0">
+            <div className="px-4 py-2 bg-gradient-to-r from-giraffe-yellow to-giraffe-yellow-dark rounded-xl shadow-sm text-white flex flex-col items-center justify-center min-w-[120px]">
               <span className="text-[8px] font-bold uppercase tracking-wider opacity-90">Placed Level</span>
               <span className="text-xs font-extrabold">{finalLevel}</span>
             </div>

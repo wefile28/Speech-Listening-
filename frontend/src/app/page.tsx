@@ -122,10 +122,10 @@ export default function Home() {
       <div className="absolute bottom-10 left-10 w-32 h-32 rounded-3xl bg-giraffe-brown/5 -rotate-12 blur-md animate-float-slow" style={{ animationDelay: "2s" }} />
 
       {/* Main Container */}
-      <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-8 z-10">
+      <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-12 gap-8 z-10">
         
         {/* Left Side: Registration Form */}
-        <div className="lg:col-span-7 giraffe-glass p-8 rounded-3xl shadow-xl border border-white/60 space-y-6 animate-fade-in-up">
+        <div className="md:col-span-7 giraffe-glass p-6 md:p-8 rounded-3xl shadow-xl border border-white/60 space-y-6 animate-fade-in-up">
           
           {/* Logo & Slogan */}
           <div className="flex items-center gap-3">
@@ -247,8 +247,8 @@ export default function Home() {
               <label className="text-xs font-bold text-giraffe-brown/80 block">
                 🎯 รูปแบบการสอบประเมิน (Assessment Mode)
               </label>
-              <div className="flex gap-4">
-                <label className="flex-1 flex items-center justify-between p-3 rounded-xl border border-giraffe-brown/10 bg-white/50 cursor-pointer hover:bg-white transition-all text-xs font-bold">
+              <div className="flex flex-col sm:flex-row gap-3">
+                <label className="w-full sm:flex-1 flex items-center justify-between p-3 rounded-xl border border-giraffe-brown/10 bg-white/50 cursor-pointer hover:bg-white transition-all text-xs font-bold">
                   <span className="flex items-center gap-2">
                     <Award className="h-4 w-4 text-giraffe-yellow-dark" /> 
                     คัดกรองแรกเข้า (Placement Test)
@@ -261,7 +261,7 @@ export default function Home() {
                     className="accent-giraffe-yellow h-4 w-4"
                   />
                 </label>
-                <label className="flex-1 flex items-center justify-between p-3 rounded-xl border border-giraffe-brown/10 bg-white/50 cursor-pointer hover:bg-white transition-all text-xs font-bold">
+                <label className="w-full sm:flex-1 flex items-center justify-between p-3 rounded-xl border border-giraffe-brown/10 bg-white/50 cursor-pointer hover:bg-white transition-all text-xs font-bold">
                   <span className="flex items-center gap-2">
                     <Clock className="h-4 w-4 text-emerald-600" />
                     สอบเลื่อนขั้นในคลาส (Promotion Test)
@@ -291,7 +291,7 @@ export default function Home() {
         </div>
 
         {/* Right Side: Historical Records Panel */}
-        <div className="lg:col-span-5 flex flex-col justify-between">
+        <div className="md:col-span-5 flex flex-col justify-between">
           <div className="giraffe-glass p-6 rounded-3xl shadow-xl border border-white/60 flex-1 flex flex-col space-y-4 max-h-[640px]">
             
             <div className="flex items-center gap-2 border-b border-giraffe-brown/10 pb-3">

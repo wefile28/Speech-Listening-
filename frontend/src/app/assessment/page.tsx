@@ -258,24 +258,24 @@ export default function Assessment() {
   };
 
   const tabs: Array<{ name: "Seed" | "Sprout" | "Sapling" | "Tree"; label: string; icon: string }> = [
-    { name: "Seed", label: "Seed 🌰", icon: "🌰" },
-    { name: "Sprout", label: "Sprout 🌱", icon: "🌱" },
-    { name: "Sapling", label: "Sapling 🪴", icon: "🪴" },
-    { name: "Tree", label: "Tree 🌳", icon: "🌳" },
+    { name: "Seed", label: "Seed", icon: "🌰" },
+    { name: "Sprout", label: "Sprout", icon: "🌱" },
+    { name: "Sapling", label: "Sapling", icon: "🪴" },
+    { name: "Tree", label: "Tree", icon: "🌳" },
   ];
 
   return (
     <div className="min-h-screen p-4 md:p-8 flex flex-col items-center relative">
       
       {/* Header Mockup */}
-      <header className="w-full max-w-5xl flex items-center justify-between border-b border-giraffe-brown/10 pb-4 mb-6 z-10 no-print">
+      <header className="w-full max-w-5xl flex flex-col sm:flex-row items-center justify-between border-b border-giraffe-brown/10 pb-4 mb-6 z-10 no-print gap-3">
         <div className="flex items-center gap-2">
           <div className="h-8 w-8 rounded-lg bg-giraffe-yellow flex items-center justify-center text-white text-lg">🦒</div>
           <span className="font-extrabold text-base tracking-tight text-giraffe-brown-dark">Speak&Listen</span>
         </div>
         
         {/* Step Indicator */}
-        <div className="flex items-center gap-4 text-xs font-semibold">
+        <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-4 text-xs font-semibold">
           <div className="flex items-center gap-1.5 opacity-60">
             <span className="h-5 w-5 rounded-full bg-giraffe-brown/10 flex items-center justify-center text-[10px]">1</span>
             <span>Student Info</span>
@@ -366,8 +366,8 @@ export default function Assessment() {
               </div>
             </div>
 
-            {/* Questions Table */}
-            <div className="bg-white rounded-3xl shadow-sm border border-neutral-100 overflow-hidden">
+            {/* Desktop Questions Table */}
+            <div className="hidden lg:block bg-white rounded-3xl shadow-sm border border-neutral-100 overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse">
                   <thead>
@@ -474,6 +474,99 @@ export default function Assessment() {
               </div>
             </div>
 
+            {/* Mobile & iPad Cards Questions Grid (Hidden on desktop, shown on mobile and iPad portrait) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:hidden">
+              {questionsInActiveTab.length === 0 ? (
+                <div className="py-8 text-center text-xs text-neutral-400 font-light bg-white rounded-3xl border border-neutral-100">
+                  ไม่มีคำถามสำหรับระดับนี้
+                </div>
+              ) : (
+                questionsInActiveTab.map((q, index) => {
+                  const isSelectedCanDo = scores[q.id] === true;
+                  const isSelectedNotYet = scores[q.id] === false;
+                  const isUnselected = scores[q.id] === undefined;
+
+                  return (
+                    <div 
+                      key={q.id}
+                      className="p-4 bg-white rounded-2xl border border-neutral-100 shadow-sm space-y-3"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="font-mono text-xs text-neutral-400 font-bold"># {index + 1}</span>
+                        <div className="flex items-center gap-1.5">
+                          <span className={`inline-flex items-center gap-1 text-[9px] font-bold px-2 py-0.5 rounded-full ${
+                            q.skill === "Speaking" 
+                              ? "bg-orange-50 text-savannah-red" 
+                              : "bg-emerald-50 text-safari-green"
+                          }`}>
+                            {q.skill === "Speaking" ? "🗣️ Speaking" : "👂 Listening"}
+                          </span>
+                          {q.visualPromptId && (
+                            <button
+                              onClick={() => setActiveVisualAid(q.visualPromptId!)}
+                              className="p-1 rounded bg-giraffe-yellow/10 text-giraffe-yellow-dark hover:bg-giraffe-yellow hover:text-white transition-all shadow-sm"
+                            >
+                              <Eye className="h-3 w-3" />
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-1">
+                        <div className="font-bold text-giraffe-brown-dark text-sm leading-snug">{q.question}</div>
+                        <div className="text-[10px] text-neutral-400 font-light leading-relaxed">
+                          <strong>Standard:</strong> {q.standard}
+                        </div>
+                        <div className="text-[10px] text-neutral-400 font-light leading-relaxed">
+                          <strong>Example:</strong> {q.example}
+                        </div>
+                      </div>
+
+                      <div className="flex gap-2 pt-1 relative">
+                        <button
+                          onClick={() => toggleScore(q.id, true)}
+                          className={`flex-1 py-3 rounded-xl text-xs font-extrabold border transition-all spring-hover flex items-center justify-center ${
+                            isSelectedCanDo 
+                              ? "bg-safari-green border-transparent text-white shadow-sm" 
+                              : isSelectedNotYet
+                              ? "bg-neutral-50 text-neutral-300 border-neutral-100 cursor-not-allowed opacity-50"
+                              : "border-safari-green/30 text-safari-green bg-white"
+                          }`}
+                        >
+                          ✔ Can Do
+                        </button>
+                        <button
+                          onClick={() => toggleScore(q.id, false)}
+                          className={`flex-1 py-3 rounded-xl text-xs font-extrabold border transition-all spring-hover flex items-center justify-center ${
+                            isSelectedNotYet 
+                              ? "bg-savannah-red border-transparent text-white shadow-sm" 
+                              : isSelectedCanDo
+                              ? "bg-neutral-50 text-neutral-300 border-neutral-100 cursor-not-allowed opacity-50"
+                              : "border-savannah-red/30 text-savannah-red bg-white"
+                          }`}
+                        >
+                          ✖ Not Yet
+                        </button>
+                        {!isUnselected && (
+                          <button
+                            onClick={() => {
+                              const nextScores = { ...scores };
+                              delete nextScores[q.id];
+                              useAssessmentStore.setState({ scores: nextScores });
+                            }}
+                            className="p-2 text-neutral-400 hover:text-neutral-600 rounded self-center"
+                            title="ล้างคำตอบ"
+                          >
+                            <X className="h-4 w-4" />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+            </div>
+
             {/* Custom Question Box */}
             <div className="giraffe-glass p-6 rounded-3xl border border-white/60 shadow-sm space-y-4">
               <div className="flex items-center gap-2 text-giraffe-brown-dark font-extrabold text-sm border-b border-giraffe-brown/5 pb-2">
@@ -515,13 +608,13 @@ export default function Assessment() {
             </div>
 
             {/* Navigation buttons */}
-            <div className="flex justify-between items-center pt-4">
-              <div className="text-xs text-giraffe-brown/60 font-light">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 border-t border-giraffe-brown/5">
+              <div className="text-xs text-giraffe-brown/60 font-light text-center sm:text-left">
                 * สลับแท็บด้านบนเพื่อสัมภาษณ์คำถามในระดับอื่นเพิ่มเติมได้ ข้อมูลประเมินจะไม่สูญหาย
               </div>
               <button
                 onClick={handleFinishTest}
-                className="py-3 px-8 bg-gradient-to-r from-giraffe-yellow to-giraffe-yellow-dark text-white font-extrabold rounded-2xl shadow-md spring-hover flex items-center gap-2 text-sm"
+                className="w-full sm:w-auto py-3.5 px-8 bg-gradient-to-r from-giraffe-yellow to-giraffe-yellow-dark text-white font-extrabold rounded-2xl shadow-md spring-hover flex items-center justify-center gap-2 text-sm"
               >
                 บันทึกคะแนนและประเมินผลครู (Finish Test)
                 <ArrowRight className="h-4 w-4" />
@@ -715,16 +808,16 @@ export default function Assessment() {
             </div>
 
             {/* Navigation buttons */}
-            <div className="flex gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row gap-3 pt-4">
               <button
                 onClick={() => setShowReflection(false)}
-                className="flex-1 py-3 border border-neutral-300 hover:border-giraffe-brown bg-white text-giraffe-brown font-extrabold rounded-2xl shadow-sm transition-all spring-hover text-xs"
+                className="w-full sm:flex-1 py-3 border border-neutral-300 hover:border-giraffe-brown bg-white text-giraffe-brown font-extrabold rounded-2xl shadow-sm transition-all spring-hover text-xs"
               >
                 ย้อนกลับไปแก้ไขคะแนน
               </button>
               <button
                 onClick={handleSubmitAll}
-                className="flex-1 py-3 bg-gradient-to-r from-giraffe-yellow to-giraffe-yellow-dark text-white font-extrabold rounded-2xl shadow-md transition-all spring-hover text-xs flex items-center justify-center gap-2"
+                className="w-full sm:flex-1 py-3 bg-gradient-to-r from-giraffe-yellow to-giraffe-yellow-dark text-white font-extrabold rounded-2xl shadow-md transition-all spring-hover text-xs flex items-center justify-center gap-2"
               >
                 สร้างรายงาน Parent PDF
                 <ArrowRight className="h-4 w-4" />
