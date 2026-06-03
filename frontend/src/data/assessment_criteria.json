@@ -1,0 +1,581 @@
+[
+  {
+    "id": "seed_listener_a_1",
+    "level": "Seed",
+    "sublevel": "LISTENER A",
+    "skill": "Listening",
+    "standard": "can understand simple classroom instructions.",
+    "example": "Clap your hands _ times / Set up / Zip your mouth zip zip / Hands on the table / Eyes on me",
+    "question": "Stand up. Now clap your hands. And Sit down. Put your hands together.",
+    "visualPromptId": "walk_carefully"
+  },
+  {
+    "id": "seed_listener_a_2",
+    "level": "Seed",
+    "sublevel": "LISTENER A",
+    "skill": "Listening",
+    "standard": "can listen and point to familiar objects.",
+    "example": "T says cat -> S points to the cat picture.",
+    "question": "Point to the cat. / Where's the dog? / Show me the ball.",
+    "visualPromptId": "play_together"
+  },
+  {
+    "id": "seed_listener_a_3",
+    "level": "Seed",
+    "sublevel": "LISTENER A",
+    "skill": "Listening",
+    "standard": "can recognize familiar words when I hear them.",
+    "example": "Joins in Head, Shoulders, Knees and Toes / 2 fingers crossing turn into rabbit...",
+    "question": "Follow me: Head, Shoulders, Knees and Toes / 2 fingers crossing(x2) turn into a rabbit..."
+  },
+  {
+    "id": "seed_listener_a_4",
+    "level": "Seed",
+    "sublevel": "LISTENER A",
+    "skill": "Listening",
+    "standard": "can respond with actions, gestures, or single words.",
+    "example": "Waves goodbye. Nods for yes. Shakes head for no.",
+    "question": "Greeting with shaking hands and Say Goodbye with waving arm"
+  },
+  {
+    "id": "seed_listener_a_5",
+    "level": "Seed",
+    "sublevel": "LISTENER A",
+    "skill": "Listening",
+    "standard": "can identify individual letter sounds when heard clearly.",
+    "example": "What starts with /b/? -> S points to ball, bus, book.",
+    "question": "Teacher touch face and say /b/ /b/ ball and student can repeat with the right mouth form."
+  },
+  {
+    "id": "seed_listener_a_6",
+    "level": "Seed",
+    "sublevel": "LISTENER A",
+    "skill": "Speaking",
+    "standard": "can repeat single words after the teacher.",
+    "example": "T says Apple. -> S says Apple.",
+    "question": "Can you repeat after me? /c/ /c/ cat 1 2 3 ..."
+  },
+  {
+    "id": "seed_listener_a_7",
+    "level": "Seed",
+    "sublevel": "LISTENER A",
+    "skill": "Speaking",
+    "standard": "can produce basic greetings.",
+    "example": "Hi! / Hello! / Bye bye! / Good morning, afternoon / See you soon.",
+    "question": "Greeting by saying Hello! and Say Goodbye by saying Bye Bye!"
+  },
+  {
+    "id": "seed_listener_a_8",
+    "level": "Seed",
+    "sublevel": "LISTENER A",
+    "skill": "Speaking",
+    "standard": "can use gestures and actions to support communication.",
+    "example": "Waves goodbye. Nods for yes. Shakes head for no.",
+    "question": "Introduce simple 'Simon says'"
+  },
+  {
+    "id": "seed_listener_b_1",
+    "level": "Seed",
+    "sublevel": "LISTENER B",
+    "skill": "Listening",
+    "standard": "can understand common classroom language.",
+    "example": "Open your book. / Look at the board. / Listen carefully. Excuse me? Raise hand before speak.",
+    "question": "Open your book. Close your book. Listen to Teacher. Look at this one."
+  },
+  {
+    "id": "seed_listener_b_2",
+    "level": "Seed",
+    "sublevel": "LISTENER B",
+    "skill": "Listening",
+    "standard": "can recognise and respond to basic action words.",
+    "example": "Reacts correctly to jump / run / sit / stop.",
+    "question": "Introduce simple 'Simon says' with action words"
+  },
+  {
+    "id": "seed_listener_b_3",
+    "level": "Seed",
+    "sublevel": "LISTENER B",
+    "skill": "Listening",
+    "standard": "can understand a simple self-introduction.",
+    "example": "My name is Cathy. I'm your Teacher.",
+    "question": "My name is Teacher Cathy. What's my name again? Cathy or Thyca."
+  },
+  {
+    "id": "seed_listener_b_4",
+    "level": "Seed",
+    "sublevel": "LISTENER B",
+    "skill": "Speaking",
+    "standard": "can state their own name when asked.",
+    "example": "My name is Natee. or simply Natee! when prompted.",
+    "question": "What's your name? How old are you?"
+  },
+  {
+    "id": "seed_listener_b_5",
+    "level": "Seed",
+    "sublevel": "LISTENER B",
+    "skill": "Speaking",
+    "standard": "can respond with Yes or No.",
+    "example": "Do you like cats? -> Yes! / No!",
+    "question": "Do you like dog? Do you like cat?"
+  },
+  {
+    "id": "seed_listener_b_6",
+    "level": "Seed",
+    "sublevel": "LISTENER B",
+    "skill": "Speaking",
+    "standard": "can count from 1 to 10.",
+    "example": "Counts objects aloud: One, two, three... ten!",
+    "question": "How many apples? Can you count the apples? What number is this?"
+  },
+  {
+    "id": "seed_listener_b_7",
+    "level": "Seed",
+    "sublevel": "LISTENER B",
+    "skill": "Speaking",
+    "standard": "can name basic colors, animals, and classroom objects.",
+    "example": "Red / Dog / Pencil / Chair",
+    "question": "What color is this? / What's this animal?"
+  },
+  {
+    "id": "sprout_responder_a_1",
+    "level": "Sprout",
+    "sublevel": "RESPONDER A",
+    "skill": "Listening",
+    "standard": "can answer personal questions.",
+    "example": "This is my mum. She has long hair.",
+    "question": "Show me the girl with long hair."
+  },
+  {
+    "id": "sprout_responder_a_2",
+    "level": "Sprout",
+    "sublevel": "RESPONDER A",
+    "skill": "Listening",
+    "standard": "can understand basic What & Who questions.",
+    "example": "What is this? / Who is she? -> S points after hearing questions.",
+    "question": "Show the picture of things or choose sth. around Student: What is this? / Who is she?"
+  },
+  {
+    "id": "sprout_responder_a_3",
+    "level": "Sprout",
+    "sublevel": "RESPONDER A",
+    "skill": "Listening",
+    "standard": "can follow a short illustrated dialogue while listening.",
+    "example": "Follows a picture-book dialogue as teacher reads aloud.",
+    "question": "Who is speaking now? Peter Rabbit or Mr.Gregor"
+  },
+  {
+    "id": "sprout_responder_a_4",
+    "level": "Sprout",
+    "sublevel": "RESPONDER A",
+    "skill": "Speaking",
+    "standard": "can give a basic self-introduction.",
+    "example": "My name is Jadi. I'm six. I'm Thai / I live in Thailand.",
+    "question": "What's your name? How old are you? Where do you live?"
+  },
+  {
+    "id": "sprout_responder_a_5",
+    "level": "Sprout",
+    "sublevel": "RESPONDER A",
+    "skill": "Speaking",
+    "standard": "can answer simple questions with 1-2 words.",
+    "example": "What color? -> Blue! / How many? -> Three!",
+    "question": "Show restaurant photo: What's this? Expected Answer: Pizza or Ice cream."
+  },
+  {
+    "id": "sprout_responder_a_6",
+    "level": "Sprout",
+    "sublevel": "RESPONDER A",
+    "skill": "Speaking",
+    "standard": "can talk about my likes and dislikes.",
+    "example": "I like cats. / I don't like spiders.",
+    "question": "Tell me one thing you like / don't like. What animal do you like?"
+  },
+  {
+    "id": "sprout_responder_a_7",
+    "level": "Sprout",
+    "sublevel": "RESPONDER A",
+    "skill": "Speaking",
+    "standard": "can reproduce a simple song from memory.",
+    "example": "Sings 'I can jump, I can walk' or classroom chants.",
+    "question": "Can you sing any English song? Baby shark..."
+  },
+  {
+    "id": "sprout_responder_b_1",
+    "level": "Sprout",
+    "sublevel": "RESPONDER B",
+    "skill": "Listening",
+    "standard": "can understand sentences describing physical appearance with picture support.",
+    "example": "Guess who: She has curly hair and blue eyes. -> S points to correct picture.",
+    "question": "Which one is the big red apple?"
+  },
+  {
+    "id": "sprout_responder_b_2",
+    "level": "Sprout",
+    "sublevel": "RESPONDER B",
+    "skill": "Listening",
+    "standard": "can understand ability statements (can/can't) from slow, clear speech.",
+    "example": "He can swim but he can't ride a bike.",
+    "question": "Look at the animals. Point to the correct one based on abilities.",
+    "visualPromptId": "run_fast"
+  },
+  {
+    "id": "sprout_responder_b_3",
+    "level": "Sprout",
+    "sublevel": "RESPONDER B",
+    "skill": "Listening",
+    "standard": "can understand positional language in simple sentences.",
+    "example": "The cat is under the table. -> S points to correct picture.",
+    "question": "Find the ball: The ball is under the chair"
+  },
+  {
+    "id": "sprout_responder_b_4",
+    "level": "Sprout",
+    "sublevel": "RESPONDER B",
+    "skill": "Listening",
+    "standard": "can understand a short message about time and place.",
+    "example": "Meet me at the park at 3 o'clock.",
+    "question": "Meet me at the zoo at 10 o'clock. Point to the right place in time."
+  },
+  {
+    "id": "sprout_responder_b_5",
+    "level": "Sprout",
+    "sublevel": "RESPONDER B",
+    "skill": "Listening",
+    "standard": "can understand short social exchanges when spoken slowly.",
+    "example": "How are you? / I'm good I'm great I'm wonderful, And you?",
+    "question": "How are you today?"
+  },
+  {
+    "id": "sprout_responder_b_6",
+    "level": "Sprout",
+    "sublevel": "RESPONDER B",
+    "skill": "Speaking",
+    "standard": "can state their birthday (day and month).",
+    "example": "My birthday is on the 5th of May.",
+    "question": "When is your birthday?"
+  },
+  {
+    "id": "sprout_responder_b_7",
+    "level": "Sprout",
+    "sublevel": "RESPONDER B",
+    "skill": "Speaking",
+    "standard": "can name parts of the body.",
+    "example": "head / shoulders / knees / toes / eyes / ears.",
+    "question": "Head, Shoulders, Knees and Toes game. What is this body part?"
+  },
+  {
+    "id": "sprout_responder_b_8",
+    "level": "Sprout",
+    "sublevel": "RESPONDER B",
+    "skill": "Speaking",
+    "standard": "can ask and answer by themself.",
+    "example": "What's this? / What color is it? -> It's a book. / It's green.",
+    "question": "Mystery Object: Student asks What color is it?"
+  },
+  {
+    "id": "sprout_responder_b_9",
+    "level": "Sprout",
+    "sublevel": "RESPONDER B",
+    "skill": "Speaking",
+    "standard": "can participate in classroom games using fixed expressions.",
+    "example": "I'm ready / Our turn! / My turn! / Your turn! / Their turn / I win!",
+    "question": "Play Tic Tac Toe (X/O) using English game expressions"
+  },
+  {
+    "id": "sapling_builder_a_1",
+    "level": "Sapling",
+    "sublevel": "BUILDER A",
+    "skill": "Listening",
+    "standard": "can understand short social exchanges.",
+    "example": "How are you? What's the weather like today?",
+    "question": "How are you today?"
+  },
+  {
+    "id": "sapling_builder_a_2",
+    "level": "Sapling",
+    "sublevel": "BUILDER A",
+    "skill": "Listening",
+    "standard": "can understand a description of a daily routine.",
+    "example": "I wake up at seven. I eat breakfast and go to school.",
+    "question": "What time do you wake up?"
+  },
+  {
+    "id": "sapling_builder_a_3",
+    "level": "Sapling",
+    "sublevel": "BUILDER A",
+    "skill": "Listening",
+    "standard": "can follow a simple dialogue about everyday activities.",
+    "example": "2 children talking about what they do after school.",
+    "question": "Read: Zeno always plays with Oscar at the playground after school. They love to run together. Ask: Who always plays with Zeno?"
+  },
+  {
+    "id": "sapling_builder_a_4",
+    "level": "Sapling",
+    "sublevel": "BUILDER A",
+    "skill": "Speaking",
+    "standard": "can produce complete sentences independently.",
+    "example": "I go to school by car. / My dog is small and brown.",
+    "question": "How do you go to school? What's this color? (Answer in full sentences)"
+  },
+  {
+    "id": "sapling_builder_a_5",
+    "level": "Sapling",
+    "sublevel": "BUILDER A",
+    "skill": "Speaking",
+    "standard": "can describe their own daily routine.",
+    "example": "Present simple tense usage.",
+    "question": "Tell me about your morning. What do you do when you wake up?"
+  },
+  {
+    "id": "sapling_builder_a_6",
+    "level": "Sapling",
+    "sublevel": "BUILDER A",
+    "skill": "Speaking",
+    "standard": "can ask and answer questions about everyday life.",
+    "example": "Do you have a pet? -> Yes, I have a cat.",
+    "question": "Do you have a pet? Do you like carrots?"
+  },
+  {
+    "id": "sapling_builder_b_1",
+    "level": "Sapling",
+    "sublevel": "BUILDER B",
+    "skill": "Listening",
+    "standard": "can extract key information from a short audio without pictures.",
+    "example": "Listens and answers Where did she go? / What did he buy?",
+    "question": "Where did Mother say before she leaves? / What did Peter do? / What did he eat from the garden?"
+  },
+  {
+    "id": "sapling_builder_b_2",
+    "level": "Sapling",
+    "sublevel": "BUILDER B",
+    "skill": "Listening",
+    "standard": "can follow basic step-by-step instructions.",
+    "example": "First, draw a circle. Then, draw two eyes. Finally, color it blue.",
+    "question": "Follow instruction: First, cut the paper. Then, fold it. Now, draw a face."
+  },
+  {
+    "id": "sapling_builder_b_3",
+    "level": "Sapling",
+    "sublevel": "BUILDER B",
+    "skill": "Listening",
+    "standard": "can follow a short story with characters and a simple plot.",
+    "example": "First, cut the paper. Then, fold it. Now, draw a face.",
+    "question": "What happened first? What happened next? How did the story end?"
+  },
+  {
+    "id": "sapling_builder_b_4",
+    "level": "Sapling",
+    "sublevel": "BUILDER B",
+    "skill": "Speaking",
+    "standard": "can perform a short role play using a script.",
+    "example": "How much is this? / What's the matter?",
+    "question": "Teacher asks 'Can I help you?' as a seller."
+  },
+  {
+    "id": "sapling_builder_b_5",
+    "level": "Sapling",
+    "sublevel": "BUILDER B",
+    "skill": "Speaking",
+    "standard": "can talk about a past event using simple past tense.",
+    "example": "Yesterday I played football with my friends.",
+    "question": "What did you do last weekend?"
+  },
+  {
+    "id": "sapling_builder_b_6",
+    "level": "Sapling",
+    "sublevel": "BUILDER B",
+    "skill": "Speaking",
+    "standard": "can explain the picture.",
+    "example": "Describes people, actions, and objects in a picture.",
+    "question": "Tell me about this picture."
+  },
+  {
+    "id": "sapling_builder_c_1",
+    "level": "Sapling",
+    "sublevel": "BUILDER C",
+    "skill": "Listening",
+    "standard": "can understand the main points of a two-person dialogue.",
+    "example": "2 people plan a trip -> Student answers Where are they going?",
+    "question": "Where are they going? Why are they going there? What are they planning to do?"
+  },
+  {
+    "id": "sapling_builder_c_2",
+    "level": "Sapling",
+    "sublevel": "BUILDER C",
+    "skill": "Listening",
+    "standard": "can identify a speaker's feelings from tone of voice.",
+    "example": "She sounds excited, sad, surprised. -> picks the right face.",
+    "question": "How does the speaker feel?"
+  },
+  {
+    "id": "sapling_builder_c_3",
+    "level": "Sapling",
+    "sublevel": "BUILDER C",
+    "skill": "Listening",
+    "standard": "can extract key details (who, what, where) from a longer audio.",
+    "example": "After listening to a 1-minute clip. Student notes 3 facts.",
+    "question": "Who is the story about? What happened? Where did it happen?"
+  },
+  {
+    "id": "sapling_builder_c_4",
+    "level": "Sapling",
+    "sublevel": "BUILDER C",
+    "skill": "Speaking",
+    "standard": "can open, sustain, and close a simple conversation.",
+    "example": "Hey! Did you watch the game? ... OK, see you later!",
+    "question": "Talk with the teacher about a hobby and finish politely."
+  },
+  {
+    "id": "sapling_builder_c_5",
+    "level": "Sapling",
+    "sublevel": "BUILDER C",
+    "skill": "Speaking",
+    "standard": "can exchange information on a familiar topic for 3-4 turns.",
+    "example": "Talks about favourite food with a partner without stopping.",
+    "question": "What is your favourite food? Why do you like it? When do you eat it?"
+  },
+  {
+    "id": "sapling_builder_c_6",
+    "level": "Sapling",
+    "sublevel": "BUILDER C",
+    "skill": "Speaking",
+    "standard": "can deviate slightly from a script during role play.",
+    "example": "Adds an unscripted line when it feels natural.",
+    "question": "Buy a ticket. Teacher asks an unexpected question: 'Who are you travelling with?' Respond naturally."
+  },
+  {
+    "id": "tree_connector_a_1",
+    "level": "Tree",
+    "sublevel": "CONNECTOR A",
+    "skill": "Listening",
+    "standard": "can understand the main points of a conversation about everyday topics.",
+    "example": "Connect ideas of 2 students discussing their weekend -> S summaries what happened.",
+    "question": "Where did they go? What was the most interesting activity?"
+  },
+  {
+    "id": "tree_connector_a_2",
+    "level": "Tree",
+    "sublevel": "CONNECTOR A",
+    "skill": "Listening",
+    "standard": "can follow a group conversation with 3+ speakers.",
+    "example": "Class debate -> Who said they liked cats? Who disagreed?",
+    "question": "Who likes cats? Who prefers dogs?"
+  },
+  {
+    "id": "tree_connector_a_3",
+    "level": "Tree",
+    "sublevel": "CONNECTOR A",
+    "skill": "Listening",
+    "standard": "can understand conversations without visual support.",
+    "example": "Listen to two friends talking on the phone and answer questions.",
+    "question": "What are they going to do?"
+  },
+  {
+    "id": "tree_connector_a_4",
+    "level": "Tree",
+    "sublevel": "CONNECTOR A",
+    "skill": "Listening",
+    "standard": "can understand multi-step verbal instructions.",
+    "example": "Follows a complex game rule explained without demonstration.",
+    "question": "Draw a square. Write your name inside it. Draw a star above it. Circle the star."
+  },
+  {
+    "id": "tree_connector_a_5",
+    "level": "Tree",
+    "sublevel": "CONNECTOR A",
+    "skill": "Speaking",
+    "standard": "can ask for more information.",
+    "example": "Really? Why? What happened next?",
+    "question": "I can do a magic trick. Expected student response: 'Really? How?'"
+  },
+  {
+    "id": "tree_connector_a_6",
+    "level": "Tree",
+    "sublevel": "CONNECTOR A",
+    "skill": "Speaking",
+    "standard": "can give a reason for a preference.",
+    "example": "I like summer because I can swim.",
+    "question": "What's your favourite season? Why do you like it?"
+  },
+  {
+    "id": "tree_connector_a_7",
+    "level": "Tree",
+    "sublevel": "CONNECTOR A",
+    "skill": "Speaking",
+    "standard": "can maintain conversations independently.",
+    "example": "I always play Roblox with my best friend.",
+    "question": "What is your favourite hobby? How often do you do it?"
+  },
+  {
+    "id": "tree_connector_a_8",
+    "level": "Tree",
+    "sublevel": "CONNECTOR A",
+    "skill": "Speaking",
+    "standard": "can express agreement or disagreement politely.",
+    "example": "I think so too. / Hmm, I'm not sure about that.",
+    "question": "Do you think children should have homework every day?"
+  },
+  {
+    "id": "tree_connector_b_1",
+    "level": "Tree",
+    "sublevel": "CONNECTOR B",
+    "skill": "Listening",
+    "standard": "can discuss familiar topics in detail.",
+    "example": "He thinks homework is too much because he has football training.",
+    "question": "Why does he think homework is too much? Do you agree with him?"
+  },
+  {
+    "id": "tree_connector_b_2",
+    "level": "Tree",
+    "sublevel": "CONNECTOR B",
+    "skill": "Listening",
+    "standard": "can follow an extended conversation at natural speed.",
+    "example": "Follows a 3-minute kids' podcast without needing it repeated.",
+    "question": "What was the podcast mainly about?"
+  },
+  {
+    "id": "tree_connector_b_3",
+    "level": "Tree",
+    "sublevel": "CONNECTOR B",
+    "skill": "Listening",
+    "standard": "can note specific details from a longer listening text.",
+    "example": "Listens to a short story about a school trip.",
+    "question": "Where did they go? / Who went on the trip? / What did they do there?"
+  },
+  {
+    "id": "tree_connector_b_4",
+    "level": "Tree",
+    "sublevel": "CONNECTOR B",
+    "skill": "Speaking",
+    "standard": "can ask for clarification when I do not understand.",
+    "example": "Sorry, could you say that again?",
+    "question": "What do you say if you don't understand me?"
+  },
+  {
+    "id": "tree_connector_b_5",
+    "level": "Tree",
+    "sublevel": "CONNECTOR B",
+    "skill": "Speaking",
+    "standard": "can give suggestions.",
+    "example": "You should join the football club.",
+    "question": "What should I do if I'm bored after school?"
+  },
+  {
+    "id": "tree_connector_b_6",
+    "level": "Tree",
+    "sublevel": "CONNECTOR B",
+    "skill": "Speaking",
+    "standard": "can explain problems and solutions.",
+    "example": "My backpack is too heavy, so I leave some books at school.",
+    "question": "Tell me about a problem and how to fix it."
+  },
+  {
+    "id": "tree_connector_b_7",
+    "level": "Tree",
+    "sublevel": "CONNECTOR B",
+    "skill": "Speaking",
+    "standard": "can participate actively in group discussions.",
+    "example": "Shares ideas and responds to others.",
+    "question": "Do you agree or disagree with this? Why?"
+  }
+]

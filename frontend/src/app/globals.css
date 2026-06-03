@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+:root {
+  --savannah-bg: #FAF7F2;
+  --savannah-bg-dark: #F5EFE4;
+  --giraffe-yellow: #F4B234;
+  --giraffe-yellow-dark: #D5941C;
+  --giraffe-brown: #7B4E26;
+  --giraffe-brown-dark: #502F13;
+  --safari-green: #3D7C5D;
+  --safari-green-light: #EEF7F3;
+  --savannah-red: #D36048;
+  --savannah-red-light: #FDF2EF;
+}
+
+@theme {
+  --font-sans: var(--font-outfit), var(--font-prompt), sans-serif;
+  --color-giraffe-yellow: var(--giraffe-yellow);
+  --color-giraffe-yellow-dark: var(--giraffe-yellow-dark);
+  --color-giraffe-brown: var(--giraffe-brown);
+  --color-giraffe-brown-dark: var(--giraffe-brown-dark);
+  --color-safari-green: var(--safari-green);
+  --color-safari-green-light: var(--safari-green-light);
+  --color-savannah-red: var(--savannah-red);
+  --color-savannah-red-light: var(--savannah-red-light);
+  --color-savannah-bg: var(--savannah-bg);
+  --color-savannah-bg-dark: var(--savannah-bg-dark);
+}
+
+body {
+  font-family: var(--font-outfit), var(--font-prompt), sans-serif;
+  background-color: var(--savannah-bg);
+  color: var(--giraffe-brown-dark);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #E6DCcc;
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C4B69F;
+}
+
+/* ==========================================================================
+   GIRAFFE SPOT BACKGROUND (Voronoi Mimicking Cells)
+   ========================================================================== */
+.giraffe-spots-bg {
+  background-image: radial-gradient(circle at 20% 30%, rgba(123, 78, 38, 0.03) 0%, rgba(123, 78, 38, 0.03) 50%, transparent 50%),
+                    radial-gradient(circle at 80% 70%, rgba(123, 78, 38, 0.02) 0%, rgba(123, 78, 38, 0.02) 40%, transparent 40%),
+                    radial-gradient(circle at 50% 10%, rgba(123, 78, 38, 0.025) 0%, rgba(123, 78, 38, 0.025) 30%, transparent 30%),
+                    radial-gradient(circle at 10% 90%, rgba(123, 78, 38, 0.015) 0%, rgba(123, 78, 38, 0.015) 60%, transparent 60%);
+  background-size: 300px 300px;
+}
+
+/* ==========================================================================
+   HIGH-END ANIMATIONS & TRANSITIONS
+   ========================================================================== */
+@keyframes floatDrift {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(3deg);
+  }
+}
+
+.animate-float-slow {
+  animation: floatDrift 8s infinite ease-in-out;
+}
+
+@keyframes sweepDonut {
+  from {
+    stroke-dashoffset: 283; /* 2 * PI * r (approx for r=45) */
+  }
+  to {
+    stroke-dashoffset: var(--donut-offset, 0);
+  }
+}
+
+.animate-donut-draw {
+  animation: sweepDonut 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Interactive Spring Bounce */
+.spring-hover {
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.spring-hover:hover {
+  transform: scale(1.03) translateY(-2px);
+  box-shadow: 0 10px 25px rgba(123, 78, 38, 0.08);
+}
+.spring-hover:active {
+  transform: scale(0.98) translateY(0px);
+}
+
+/* Glassmorphism Panels */
+.giraffe-glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* ==========================================================================
+   A4 PRINT STYLES (Single Page A4 Constraints)
+   ========================================================================== */
+@media print {
+  html, body {
+    width: 210mm !important;
+    height: 297mm !important;
+    background: #FFFFFF !important;
+    color: #1A0D05 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-page-container {
+    width: 210mm !important;
+    height: 297mm !important;
+    box-sizing: border-box !important;
+    padding: 10mm 15mm !important;
+    background: #FFFFFF !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    overflow: hidden !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+    margin: 0 !important;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 0mm;
+  }
+}
